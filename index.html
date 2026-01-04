@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guitar Chords and Scales</title>
+    <link rel="stylesheet" href="charts.css">
+    <style>
+        body {
+            font-family: Verdana, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+        .chord-container, .scale-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px auto;
+            max-width: 1200px;
+        }
+        .chord-diagram, .scale-diagram {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .chord-name {
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 0 0 10px 0;
+        }
+        .button-container {
+            text-align: center;
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 14px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        button.active {
+            background-color: #2E7D32;
+            font-weight: bold;
+        }
+        
+        /* Toggle Switch Styles */
+        .toggle-container {
+            display: inline-flex;
+            background: #e0e0e0;
+            border-radius: 25px;
+            padding: 4px;
+            gap: 2px;
+            position: relative;
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .toggle-option {
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #666;
+            transition: all 0.3s ease;
+            z-index: 2;
+            min-width: 80px;
+            text-align: center;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: calc(50% - 4px);
+            height: calc(100% - 8px);
+            background: #4CAF50;
+            border-radius: 20px;
+            transition: transform 0.3s ease;
+            z-index: 1;
+        }
+        
+        .toggle-container.pentatonic .toggle-slider {
+            transform: translateX(100%);
+        }
+        
+        .toggle-container .toggle-option.active {
+            color: white;
+            font-weight: bold;
+        }
+        
+        .toggle-container:hover .toggle-slider {
+            background: #45a049;
+        }
+        
+        .toggle-label {
+            font-size: 12px;
+            color: #666;
+            margin-right: 8px;
+            font-weight: 500;
+        }
+        .section {
+            margin: 40px 0;
+        }
+        .scale-section-header {
+            text-align: center;
+            color: #4CAF50;
+            font-size: 20px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Guitar Chords and Scales Reference</h1>
+
+    <div class="section">
+        <h2>Common Chord Shapes</h2>
+        <div class="progression-controls">
+            <span class="toggle-label">Select Key:</span>
+            <select id="keySelector" class="key-selector">
+                <optgroup label="Major Keys">
+                    <option value="C">C Major</option>
+                    <option value="D">D Major</option>
+                    <option value="E">E Major</option>
+                    <option value="F">F Major</option>
+                    <option value="G">G Major</option>
+                    <option value="A">A Major</option>
+                    <option value="B">B Major</option>
+                </optgroup>
+                <optgroup label="Minor Keys">
+                    <option value="Am">A Minor</option>
+                    <option value="Em">E Minor</option>
+                    <option value="Dm">D Minor</option>
+                    <option value="Gm">G Minor</option>
+                    <option value="Cm">C Minor</option>
+                    <option value="Fm">F Minor</option>
+                    <option value="Bm">B Minor</option>
+                </optgroup>
+            </select>
+        </div>
+        <div class="chord-container" id="chordContainer"></div>
+    </div>
+
+    <div class="section">
+        <h2>Scale Patterns</h2>
+        <div class="button-container">
+            <span class="toggle-label">Scale Type:</span>
+            <div class="toggle-container" id="toggleScaleType">
+                <div class="toggle-slider"></div>
+                <div class="toggle-option active" data-type="diatonic">Diatonic</div>
+                <div class="toggle-option" data-type="pentatonic">Pentatonic</div>
+            </div>
+            <button id="toggleVisibility">Toggle Note Labels</button>
+        </div>
+        <div class="scale-section-header" id="scaleHeader">Diatonic Scale Patterns</div>
+        <div class="scale-container"></div>
+    </div>
+
+    <script src="chord_diagrams.js"></script>
+    <script src="scale_diagrams.js"></script>
+    <script>
+        // Chord data - common guitar chords including 7th chords
+        const chordsData = [
+            { name: "C Major", shape: "x32010" },
+            { name: "D Major", shape: "xx0232" },
+            { name: "E Major", shape: "022100" },
+            { name: "F Major", shape: "133211" },
+            { name: "G Major", shape: "320003" },
+            { name: "A Major", shape: "x02220" },
+            { name: "B Major", shape: "x24442" },
+            { name: "C Minor", shape: "x35543" },
+            { name: "D Minor", shape: "xx0231" },
+            { name: "E Minor", shape: "022000" },
+            { name: "F Minor", shape: "133111" },
+            { name: "G Minor", shape: "355333" },
+            { name: "A Minor", shape: "x02210" },
+            { name: "B Minor", shape: "x24432" },
+            { name: "C7", shape: "x32310" },
+            { name: "D7", shape: "xx0212" },
+            { name: "E7", shape: "020100" },
+            { name: "F7", shape: "131211" },
+            { name: "G7", shape: "320001" },
+            { name: "A7", shape: "x02020" },
+            { name: "B7", shape: "x21202" }
+        ];
+
+        // Diatonic scale data (original patterns)
+        const diatonicScaleData = [
+            {"name": "Pattern 1", "pattern": ["EADGBE", "F___CF", "_BEA__", "GCF_DG", "______", "______"]},
+            {"name": "Pattern 2", "pattern": ["_BEA__", "GCF_DG", "___B__", "ADGCEA", "____F_", "______"]},
+            {"name": "Pattern 3", "pattern": ["___B__", "ADGCEA", "____F_", "BEAD_B", "CF__GC", "______"]},
+            {"name": "Pattern 4", "pattern": ["BEAD_B", "CF__GC", "__BE__", "DGCFAD", "______", "______"]},
+            {"name": "Pattern 5", "pattern": ["__BE__", "DGCFAD", "______", "EADGBE", "F___CF", "______"]}
+        ];
+
+        // Pentatonic scale data (B and F replaced with underscores from diatonic patterns)
+        const pentatonicScaleData = [
+            {"name": "Pattern 1", "pattern": ["EADG_E", "____C_", "__EA__", "GC__DG", "______", "______"]},
+            {"name": "Pattern 2", "pattern": ["__EA__", "GC__DG", "______", "ADGCEA", "______", "______"]},
+            {"name": "Pattern 3", "pattern": ["______", "ADGCEA", "______", "_EAD__", "C___GC", "______"]},
+            {"name": "Pattern 4", "pattern": ["_EAD__", "C___GC", "___E__", "DGC_AD", "______", "______"]},
+            {"name": "Pattern 5", "pattern": ["___E__", "DGC_AD", "______", "EADG_E", "____C_", "______"]}
+        ];
+
+        // State management
+        let currentScaleType = 'diatonic';
+        let currentScaleData = diatonicScaleData;
+
+        // Render all chords initially
+        renderChords(chordsData);
+
+        // Initial scale render
+        renderScaleDiagrams(currentScaleData);
+
+        // Toggle between Diatonic and Pentatonic
+        document.getElementById('toggleScaleType').addEventListener('click', function() {
+            const toggleContainer = this;
+            const options = toggleContainer.querySelectorAll('.toggle-option');
+            
+            if (currentScaleType === 'diatonic') {
+                currentScaleType = 'pentatonic';
+                currentScaleData = pentatonicScaleData;
+                document.getElementById('scaleHeader').textContent = 'Pentatonic Scale Patterns';
+                
+                // Update visual state
+                toggleContainer.classList.add('pentatonic');
+                options[0].classList.remove('active');
+                options[1].classList.add('active');
+            } else {
+                currentScaleType = 'diatonic';
+                currentScaleData = diatonicScaleData;
+                document.getElementById('scaleHeader').textContent = 'Diatonic Scale Patterns';
+                
+                // Update visual state
+                toggleContainer.classList.remove('pentatonic');
+                options[0].classList.add('active');
+                options[1].classList.remove('active');
+            }
+            
+            // Clear and re-render scales
+            const container = document.querySelector('.scale-container');
+            container.innerHTML = '';
+            renderScaleDiagrams(currentScaleData);
+        });
+
+        // State for chord progression view
+        let selectedKey = 'C';
+
+        // Key selector change
+        document.getElementById('keySelector').addEventListener('change', function() {
+            selectedKey = this.value;
+            const container = document.getElementById('chordContainer');
+            container.dataset.selectedKey = selectedKey;
+            renderProgressionChords(selectedKey);
+            renderProgressionExamples(selectedKey);
+        });
+
+        // Initialize progression view on load
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('chordContainer');
+            container.dataset.selectedKey = selectedKey;
+            renderProgressionChords(selectedKey);
+            renderProgressionExamples(selectedKey);
+        });
+
+        // Toggle note labels visibility
+        document.getElementById('toggleVisibility').addEventListener('click', function() {
+            document.querySelectorAll('.zero-text').forEach(function(el) {
+                el.classList.toggle('invisible');
+            });
+        });
+    </script>
+</body>
+</html>

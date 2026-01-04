@@ -1,0 +1,35 @@
+#scale-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap */
+    justify-content: space-around;
+    gap: 20px; /* Padding between SVGs */
+    height: 90vh; /* Limit the height to viewport height */
+    align-content: flex-start; /* Align items to the start of the container */
+}
+
+.chart-svg {
+    flex: 1 1 auto; /* Allow SVGs to grow and shrink */
+    width: auto;
+    height: auto;
+    max-width: 100%; /* Maximum width of 100% of its container */
+    max-height: 50%; /* Maximum height of 100% of its container */
+    min-width: 300px; /* Set a minimum width for the SVGs */
+}
+
+
+    /* Style for the '0' text inside the circles */
+.zero-text {
+    fill: white; /* White text color */
+    font-size: x-small ; /* Adjust as needed */
+    text-anchor: "middle"; /* Center the text horizontally */
+    alignment-baseline: "middle"; /* Center the text vertically */
+}
+.invisible {
+    visibility: hidden;
+}
+/* Center the button container */
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* Or any other amount to space it from content above */
+}
