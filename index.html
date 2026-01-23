@@ -8,14 +8,79 @@
     <style>
         body {
             font-family: Verdana, sans-serif;
-            margin: 20px;
+            margin: 0;
+            padding: 0;
             background-color: #f5f5f5;
+            display: flex;
         }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            width: 250px;
+            background-color: #e9e6dc;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            height: 100vh;
+            overflow-y: auto;
+            position: fixed;
+            left: 0;
+            top: 0;
+        }
+        
+        .sidebar h2 {
+            margin-top: 0;
+            color: #8b6f47;
+            border-bottom: 2px solid #8b6f47;
+            padding-bottom: 10px;
+        }
+        
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .sidebar li {
+            margin-bottom: 10px;
+        }
+        
+        .sidebar a {
+            color: #333;
+            text-decoration: none;
+            display: block;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .sidebar a:hover {
+            background-color: #d4c5b0;
+        }
+        
+        .sidebar a.active {
+            background-color: #8b6f47;
+            color: white;
+        }
+        
+        .sidebar h3 {
+            color: #8b6f47;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+            flex: 1;
+        }
+        
         h1, h2 {
             text-align: center;
             color: #333;
         }
-        .chord-container, .scale-container {
+        .chord-container {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
@@ -23,7 +88,7 @@
             margin: 20px auto;
             max-width: 1200px;
         }
-        .chord-diagram, .scale-diagram {
+        .chord-diagram {
             background: white;
             padding: 15px;
             border-radius: 8px;
@@ -119,63 +184,161 @@
         .section {
             margin: 40px 0;
         }
-        .scale-section-header {
-            text-align: center;
-            color: #4CAF50;
-            font-size: 20px;
-            margin: 10px 0;
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+            
+            .main-content {
+                margin-left: 200px;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+            }
+            
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .menu-toggle {
+                display: block;
+                position: fixed;
+                top: 10px;
+                left: 10px;
+                z-index: 1001;
+                background: #8b6f47;
+                color: white;
+                border: none;
+                padding: 10px;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+        }
+        
+        .menu-toggle {
+            display: none;
         }
     </style>
 </head>
 <body>
-    <h1>Guitar Chords and Scales Reference</h1>
-
-    <div class="section">
-        <h2>Common Chord Shapes</h2>
-        <div class="progression-controls">
-            <span class="toggle-label">Select Key:</span>
-            <select id="keySelector" class="key-selector">
-                <optgroup label="Major Keys">
-                    <option value="C">C Major</option>
-                    <option value="D">D Major</option>
-                    <option value="E">E Major</option>
-                    <option value="F">F Major</option>
-                    <option value="G">G Major</option>
-                    <option value="A">A Major</option>
-                    <option value="B">B Major</option>
-                </optgroup>
-                <optgroup label="Minor Keys">
-                    <option value="Am">A Minor</option>
-                    <option value="Em">E Minor</option>
-                    <option value="Dm">D Minor</option>
-                    <option value="Gm">G Minor</option>
-                    <option value="Cm">C Minor</option>
-                    <option value="Fm">F Minor</option>
-                    <option value="Bm">B Minor</option>
-                </optgroup>
-            </select>
-        </div>
-        <div class="chord-container" id="chordContainer"></div>
+    <!-- Mobile Menu Toggle -->
+    <button class="menu-toggle" onclick="toggleSidebar()">☰ Menu</button>
+    
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <h2>Project Pages</h2>
+        
+        <h3>Main Application</h3>
+        <ul>
+            <li><a href="index.html" class="active">Guitar Chords & Scales</a></li>
+            <li><a href="scale-patterns.html">Scale Patterns</a></li>
+        </ul>
+        
+        <h3>Demonstration Pages</h3>
+        <ul>
+            <li><a href="chord-examples-fixed.html">Chord Display Methods</a></li>
+            <li><a href="chord-text-converter-demo.html">Chord Text Converter Demo</a></li>
+            <li><a href="html_chords_sampler.html">Chord Methods Sampler</a></li>
+        </ul>
+        
+        <h3>Testing Pages</h3>
+        <ul>
+            <li><a href="test-chord-display.html">Chord Display Test</a></li>
+            <li><a href="simple-test.html">Simple Chord Test</a></li>
+            <li><a href="test-simple-scaling.html">SVG Scaling Test</a></li>
+        </ul>
+        
+        <h3>Documentation</h3>
+        <ul>
+            <li><a href="README-chord-text-converter.md">Chord Text Converter Guide</a></li>
+            <li><a href="THEME_README.md">Theme Configuration Guide</a></li>
+            <li><a href="FILE_SUMMARIES.md">File Summaries</a></li>
+        </ul>
+        
+        <h3>Resources</h3>
+        <ul>
+            <li><a href="chord_diagrams.js">chord_diagrams.js</a></li>
+            <li><a href="scale_diagrams.js">scale_diagrams.js</a></li>
+            <li><a href="chord-text-converter.js">chord-text-converter.js</a></li>
+            <li><a href="theme_config.js">theme_config.js</a></li>
+            <li><a href="charts.css">charts.css</a></li>
+            <li><a href="chord-text-converter.css">chord-text-converter.css</a></li>
+        </ul>
     </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <h1>Guitar Chords and Scales Reference</h1>
 
-    <div class="section">
-        <h2>Scale Patterns</h2>
-        <div class="button-container">
-            <span class="toggle-label">Scale Type:</span>
-            <div class="toggle-container" id="toggleScaleType">
-                <div class="toggle-slider"></div>
-                <div class="toggle-option active" data-type="diatonic">Diatonic</div>
-                <div class="toggle-option" data-type="pentatonic">Pentatonic</div>
+        <div class="section">
+            <h2>Common Chord Shapes</h2>
+            <div class="progression-controls">
+                <span class="toggle-label">Select Key:</span>
+                <select id="keySelector" class="key-selector">
+                    <optgroup label="Major Keys">
+                        <option value="C">C Major</option>
+                        <option value="D">D Major</option>
+                        <option value="E">E Major</option>
+                        <option value="F">F Major</option>
+                        <option value="G">G Major</option>
+                        <option value="A">A Major</option>
+                        <option value="B">B Major</option>
+                    </optgroup>
+                    <optgroup label="Minor Keys">
+                        <option value="Am">A Minor</option>
+                        <option value="Em">E Minor</option>
+                        <option value="Dm">D Minor</option>
+                        <option value="Gm">G Minor</option>
+                        <option value="Cm">C Minor</option>
+                        <option value="Fm">F Minor</option>
+                        <option value="Bm">B Minor</option>
+                    </optgroup>
+                </select>
             </div>
-            <button id="toggleVisibility">Toggle Note Labels</button>
+            <div class="chord-container" id="chordContainer"></div>
         </div>
-        <div class="scale-section-header" id="scaleHeader">Diatonic Scale Patterns</div>
-        <div class="scale-container"></div>
+
+        <div class="section">
+            <h2>Scale Patterns</h2>
+            <p>For detailed scale patterns, please visit our <a href="scale-patterns.html">dedicated Scale Patterns page</a>.</p>
+        </div>
     </div>
 
     <script src="chord_diagrams.js"></script>
-    <script src="scale_diagrams.js"></script>
     <script>
+        // Function to toggle sidebar on mobile
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+        
+        // Function to set active link in sidebar
+        function setActiveLink() {
+            const currentPath = window.location.pathname;
+            const links = document.querySelectorAll('.sidebar a');
+            
+            links.forEach(link => {
+                if (link.getAttribute('href') === currentPath) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        }
+        
+        // Set active link when page loads
+        document.addEventListener('DOMContentLoaded', setActiveLink);
+        
         // Chord data - common guitar chords including 7th chords
         const chordsData = [
             { name: "C Major", shape: "x32010" },
@@ -201,65 +364,6 @@
             { name: "B7", shape: "x21202" }
         ];
 
-        // Diatonic scale data (original patterns)
-        const diatonicScaleData = [
-            {"name": "Pattern 1", "pattern": ["EADGBE", "F___CF", "_BEA__", "GCF_DG", "______", "______"]},
-            {"name": "Pattern 2", "pattern": ["_BEA__", "GCF_DG", "___B__", "ADGCEA", "____F_", "______"]},
-            {"name": "Pattern 3", "pattern": ["___B__", "ADGCEA", "____F_", "BEAD_B", "CF__GC", "______"]},
-            {"name": "Pattern 4", "pattern": ["BEAD_B", "CF__GC", "__BE__", "DGCFAD", "______", "______"]},
-            {"name": "Pattern 5", "pattern": ["__BE__", "DGCFAD", "______", "EADGBE", "F___CF", "______"]}
-        ];
-
-        // Pentatonic scale data (B and F replaced with underscores from diatonic patterns)
-        const pentatonicScaleData = [
-            {"name": "Pattern 1", "pattern": ["EADG_E", "____C_", "__EA__", "GC__DG", "______", "______"]},
-            {"name": "Pattern 2", "pattern": ["__EA__", "GC__DG", "______", "ADGCEA", "______", "______"]},
-            {"name": "Pattern 3", "pattern": ["______", "ADGCEA", "______", "_EAD__", "C___GC", "______"]},
-            {"name": "Pattern 4", "pattern": ["_EAD__", "C___GC", "___E__", "DGC_AD", "______", "______"]},
-            {"name": "Pattern 5", "pattern": ["___E__", "DGC_AD", "______", "EADG_E", "____C_", "______"]}
-        ];
-
-        // State management
-        let currentScaleType = 'diatonic';
-        let currentScaleData = diatonicScaleData;
-
-        // Render all chords initially
-        renderChords(chordsData);
-
-        // Initial scale render
-        renderScaleDiagrams(currentScaleData);
-
-        // Toggle between Diatonic and Pentatonic
-        document.getElementById('toggleScaleType').addEventListener('click', function() {
-            const toggleContainer = this;
-            const options = toggleContainer.querySelectorAll('.toggle-option');
-            
-            if (currentScaleType === 'diatonic') {
-                currentScaleType = 'pentatonic';
-                currentScaleData = pentatonicScaleData;
-                document.getElementById('scaleHeader').textContent = 'Pentatonic Scale Patterns';
-                
-                // Update visual state
-                toggleContainer.classList.add('pentatonic');
-                options[0].classList.remove('active');
-                options[1].classList.add('active');
-            } else {
-                currentScaleType = 'diatonic';
-                currentScaleData = diatonicScaleData;
-                document.getElementById('scaleHeader').textContent = 'Diatonic Scale Patterns';
-                
-                // Update visual state
-                toggleContainer.classList.remove('pentatonic');
-                options[0].classList.add('active');
-                options[1].classList.remove('active');
-            }
-            
-            // Clear and re-render scales
-            const container = document.querySelector('.scale-container');
-            container.innerHTML = '';
-            renderScaleDiagrams(currentScaleData);
-        });
-
         // State for chord progression view
         let selectedKey = 'C';
 
@@ -278,13 +382,6 @@
             container.dataset.selectedKey = selectedKey;
             renderProgressionChords(selectedKey);
             renderProgressionExamples(selectedKey);
-        });
-
-        // Toggle note labels visibility
-        document.getElementById('toggleVisibility').addEventListener('click', function() {
-            document.querySelectorAll('.zero-text').forEach(function(el) {
-                el.classList.toggle('invisible');
-            });
         });
     </script>
 </body>
