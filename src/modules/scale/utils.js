@@ -21,6 +21,33 @@ const enharmonicEquivalents = {
     'A#': ['A#', 'Bb']
 };
 
+// Keys that traditionally use flat spellings
+const flatKeys = new Set(['F', 'Bb', 'Eb', 'Ab', 'Db', 'Gb', 'Cb']);
+
+/**
+ * Choose an enharmonic spelling for a note based on the selected key.
+ * If the key prefers flats and the note has a flat equivalent, return the flat name.
+ * Otherwise return the original note.
+ * @param {string} note - Note name produced by transpose (sharp-based)
+ * @param {string} key - Selected key/root note (e.g., 'F', 'Bb')
+ * @returns {string}
+ */
+export function chooseEnharmonic(note, key) {
+    if (!note || typeof note !== 'string') return note;
+    // Find if note has an enharmonic pair defined
+    for (const sharp in enharmonicEquivalents) {
+        const pair = enharmonicEquivalents[sharp];
+        if (pair.includes(note)) {
+            // If the selected key prefers flats, return the flat variant if available
+            if (flatKeys.has(key) && pair.length > 1) {
+                return pair[1];
+            }
+            return pair[0];
+        }
+    }
+    return note;
+}
+
 /**
  * Transpose a note name by a given number of semitones
  * @param {string} note - Note name (C, D, E, F, G, A, B, C#, D#, etc.)

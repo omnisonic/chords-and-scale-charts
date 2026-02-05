@@ -12,6 +12,18 @@ let currentScaleData = diatonicScaleData;
 let highlightTonic = false;
 let selectedKey = 'C';
 let scaleRootNote = 'C';
+let labelsVisible = true;
+
+/**
+ * Restore note label visibility state after re-rendering
+ */
+function restoreLabelVisibility() {
+    if (!labelsVisible) {
+        document.querySelectorAll('.scale-note-label').forEach(function(el) {
+            el.classList.add('invisible');
+        });
+    }
+}
 
 /**
  * Initialize event listeners for the application
@@ -50,6 +62,7 @@ export function initializeEventListeners() {
         scaleKeySelector.addEventListener('change', function() {
             scaleRootNote = this.value;
             renderScaleDiagrams(currentScaleData, scaleRootNote, highlightTonic, currentScaleType);
+            restoreLabelVisibility();
         });
     }
     
@@ -88,6 +101,7 @@ export function initializeEventListeners() {
             
             // Clear and re-render scales
             renderScaleDiagrams(currentScaleData, scaleRootNote, highlightTonic, currentScaleType);
+            restoreLabelVisibility();
         });
     }
     
@@ -95,6 +109,7 @@ export function initializeEventListeners() {
     const toggleVisibility = document.getElementById('toggleVisibility');
     if (toggleVisibility) {
         toggleVisibility.addEventListener('click', function() {
+            labelsVisible = !labelsVisible;
             document.querySelectorAll('.scale-note-label').forEach(function(el) {
                 el.classList.toggle('invisible');
             });
@@ -116,6 +131,7 @@ export function initializeEventListeners() {
                 if (setMinorRootBtn) setMinorRootBtn.classList.remove('active');
             }
             renderScaleDiagrams(currentScaleData, scaleRootNote, highlightTonic, currentScaleType);
+            restoreLabelVisibility();
         });
     }
 
@@ -130,6 +146,7 @@ export function initializeEventListeners() {
                 if (setMajorRootBtn) setMajorRootBtn.classList.remove('active');
             }
             renderScaleDiagrams(currentScaleData, scaleRootNote, highlightTonic, currentScaleType);
+            restoreLabelVisibility();
         });
     }
 

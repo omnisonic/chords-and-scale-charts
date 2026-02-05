@@ -1,6 +1,6 @@
 // Scale SVG rendering functions
 
-import { convertPatternToRoot, calculateFretDistance, transposeNote, getNoteFretonSixthString } from './utils.js';
+import { convertPatternToRoot, calculateFretDistance, transposeNote, getNoteFretonSixthString, chooseEnharmonic } from './utils.js';
 
 /**
  * Generates SVG for a scale diagram
@@ -26,18 +26,8 @@ export function generateScaleDiagram(scaleData, rootNote = 'C', highlightTonic =
 
     let svg = `<svg width="${svgTotalWidth}" height="${svgHeight}" xmlns="http://www.w3.org/2000/svg">`;
 
-    // Draw frets (vertical lines)
-    for (let i = 0; i <= frets; i++) {
-        svg += `<line x1="${leftOffset + sidePadding + i * stringDistance}" y1="${topPadding}"
-                       x2="${leftOffset + sidePadding + i * stringDistance}" y2="${svgHeight}" stroke="#666" stroke-width="1"/>`;
-    }
-
-    // Draw strings (horizontal lines)
-    for (let i = 0; i < strings; i++) {
-        svg += `<line x1="${leftOffset + sidePadding}" y1="${topPadding + i * fretDistance}"
-                       x2="${leftOffset + svgWidth - sidePadding}" y2="${topPadding + i * fretDistance}"
-                       stroke="#666" stroke-width="1"/>`;
-    }
+    // (Frets and strings are drawn after we determine startingFret so we
+    // can hide the top line for open-position diagrams.)
 
     // Convert pattern to the new root note
     const convertedData = convertPatternToRoot(scaleData, rootNote);
@@ -75,6 +65,24 @@ export function generateScaleDiagram(scaleData, rootNote = 'C', highlightTonic =
         }
     }
     
+    // Decide whether to show the top horizontal line (hide for open-position diagrams)
+    const showTopLine = startingFret !== 0;
+
+    // Draw frets (vertical lines)
+    for (let i = 0; i <= frets; i++) {
+        svg += `<line x1="${leftOffset + sidePadding + i * stringDistance}" y1="${topPadding}"
+                       x2="${leftOffset + sidePadding + i * stringDistance}" y2="${svgHeight}" stroke="#666" stroke-width="1"/>`;
+    }
+
+    // Draw strings (horizontal lines)
+    for (let i = 0; i < strings; i++) {
+        // Skip the top horizontal line when showing open-position (starting fret 0)
+        if (i === 0 && !showTopLine) continue;
+        svg += `<line x1="${leftOffset + sidePadding}" y1="${topPadding + i * fretDistance}"
+                       x2="${leftOffset + svgWidth - sidePadding}" y2="${topPadding + i * fretDistance}"
+                       stroke="#666" stroke-width="1"/>`;
+    }
+
     // Draw scale notes
     pattern.forEach((stringPattern, stringIndex) => {
         if (stringPattern && stringPattern !== '______') {
@@ -85,12 +93,14 @@ export function generateScaleDiagram(scaleData, rootNote = 'C', highlightTonic =
                     
                     // Transpose the note name based on the new key
                     const transposedNote = transposeNote(note, transpositionInterval);
+                    // Format enharmonic spelling based on selected key (flats for flat keys)
+                    const displayNote = chooseEnharmonic(transposedNote, rootNote);
                     
-                    // Determine if this should be highlighted based on mode
+                    // Determine if this should be highlighted based on mode (compare by semitone equivalence)
                     let shouldHighlight = false;
-                    if (highlightTonic === 'major' && transposedNote === rootNote) {
+                    if (highlightTonic === 'major' && calculateFretDistance(rootNote, transposedNote) === 0) {
                         shouldHighlight = true;
-                    } else if (highlightTonic === 'minor' && relativeMinor && transposedNote === relativeMinor) {
+                    } else if (highlightTonic === 'minor' && relativeMinor && calculateFretDistance(relativeMinor, transposedNote) === 0) {
                         shouldHighlight = true;
                     }
 
@@ -100,7 +110,7 @@ export function generateScaleDiagram(scaleData, rootNote = 'C', highlightTonic =
                     svg += `<circle cx="${x}" cy="${y}" r="${radius}" fill="${fillColor}"/>`;
                     
                     // Draw note name
-                    svg += `<text class="scale-note-label" x="${x}" y="${y + 3}" text-anchor="middle" font-family="Verdana" font-size="9" fill="white" font-weight="bold">${transposedNote}</text>`;
+                    svg += `<text class="scale-note-label" x="${x}" y="${y + 3}" text-anchor="middle" font-family="Verdana" font-size="9" fill="white" font-weight="bold">${displayNote}</text>`;
                 }
             });
         }
