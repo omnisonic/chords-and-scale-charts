@@ -1,0 +1,142 @@
+/* Chord Diagram Styles */
+.chord-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin: 20px auto;
+    max-width: 1200px;
+}
+
+.chord-diagram {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.chord-name {
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0 0 10px 0;
+}
+
+/* Progression View Styles */
+.chord-container.progression-view {
+    flex-direction: column;
+    gap: 40px;
+}
+
+.chord-group {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.chord-group h3 {
+    text-align: center;
+    color: #333;
+    margin: 0 0 15px 0;
+    font-size: 18px;
+}
+
+.chord-group-chords {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.chord-group.primary-group {
+    border-left: 4px solid #4CAF50;
+}
+
+.chord-group.secondary-group {
+    border-left: 4px solid #FF9800;
+}
+
+.chord-diagram.progression-chord {
+    position: relative;
+    transition: transform 0.2s ease;
+}
+
+.chord-diagram.progression-chord:hover {
+    transform: scale(1.05);
+}
+
+.chord-diagram.progression-chord .chord-function {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: #4CAF50;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.chord-diagram.progression-chord.major .chord-function {
+    background: #4CAF50;
+}
+
+.chord-diagram.progression-chord.minor .chord-function {
+    background: #2196F3;
+}
+
+.chord-diagram.progression-chord.7th .chord-function {
+    background: #9C27B0;
+}
+
+/* Highlighting for progressions */
+.chord-diagram.highlighted {
+    border: 3px solid #4CAF50;
+    box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+    transform: scale(1.05);
+}
+
+.chord-diagram.dimmed {
+    opacity: 0.3;
+    filter: grayscale(50%);
+}
+
+/* Progression Examples */
+.progression-examples {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-top: 20px;
+}
+
+.progression-examples h3 {
+    text-align: center;
+    color: #333;
+    margin: 0 0 15px 0;
+}
+
+.progression-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.progression-item {
+    background: #f5f5f5;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    border: 2px solid transparent;
+}
+
+.progression-item:hover {
+    background: #e8f5e9;
+    border-color: #4CAF50;
+}
+
+/* SVG Chord Diagram Styles */
+/* SVG rendering styles are applied via JavaScript */

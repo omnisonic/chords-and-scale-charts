@@ -1,0 +1,100 @@
+/* Scale Diagram Styles */
+.scale-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin: 20px auto;
+    max-width: 1200px;
+}
+
+.scale-diagram {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.scale-section-header {
+    text-align: center;
+    color: #4CAF50;
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+/* Scale Toggle Container */
+.toggle-container {
+    display: inline-flex;
+    background: #e0e0e0;
+    border-radius: 25px;
+    padding: 4px;
+    gap: 2px;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+}
+
+.toggle-option {
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #666;
+    transition: all 0.3s ease;
+    z-index: 2;
+    min-width: 80px;
+    text-align: center;
+}
+
+.toggle-slider {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: calc(50% - 4px);
+    height: calc(100% - 8px);
+    background: #4CAF50;
+    border-radius: 20px;
+    transition: transform 0.3s ease;
+    z-index: 1;
+}
+
+.toggle-container.pentatonic .toggle-slider {
+    transform: translateX(100%);
+}
+
+.toggle-container .toggle-option.active {
+    color: white;
+    font-weight: bold;
+}
+
+.toggle-container:hover .toggle-slider {
+    background: #45a049;
+}
+
+.toggle-label {
+    font-size: 12px;
+    color: #666;
+    margin-right: 8px;
+    font-weight: 500;
+}
+
+/* Scale SVG Styles */
+.scale-svg {
+    /* SVG rendering styles will be applied via JavaScript */
+}
+
+/* Scale specific SVG text styles */
+.zero-text {
+    fill: white;
+    font-size: x-small;
+    text-anchor: "middle";
+    alignment-baseline: "middle";
+}
+
+.tonic-text {
+    fill: white;
+    font-size: x-small;
+    font-weight: bold;
+    text-anchor: "middle";
+    alignment-baseline: "middle";
+}
