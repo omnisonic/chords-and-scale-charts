@@ -283,3 +283,34 @@ if (typeof window !== 'undefined') {
     window.toggleSidebar = toggleSidebar;
     window.setActiveLink = setActiveLink;
 }
+
+// Modal functionality
+const openAboutModal = document.getElementById('openAboutModal');
+const closeModal = document.getElementById('closeModal');
+const modalOverlay = document.getElementById('modalOverlay');
+const aboutModal = document.getElementById('aboutModal');
+
+if (openAboutModal) {
+    openAboutModal.addEventListener('click', function() {
+        aboutModal.classList.add('active');
+    });
+}
+
+if (closeModal) {
+    closeModal.addEventListener('click', function() {
+        aboutModal.classList.remove('active');
+    });
+}
+
+if (modalOverlay) {
+    modalOverlay.addEventListener('click', function() {
+        aboutModal.classList.remove('active');
+    });
+}
+
+// Close modal with ESC key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && aboutModal.classList.contains('active')) {
+        aboutModal.classList.remove('active');
+    }
+});

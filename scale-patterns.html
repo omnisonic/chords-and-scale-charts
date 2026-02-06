@@ -40,11 +40,54 @@
                     <div class="toggle-option" data-type="pentatonic">Pentatonic</div>
                 </div>
                 <button id="toggleVisibility">Toggle Note Labels</button>
+                <button id="toggleScaleDegrees">Toggle Scale Degrees</button>
                 <button id="setMajorRoot" class="root-toggle">Major Root</button>
                 <button id="setMinorRoot" class="root-toggle">Minor Root</button>
+                <button id="openAboutModal">About</button>
             </div>
             <div class="scale-section-header" id="scaleHeader">Diatonic Scale Patterns</div>
             <div class="scale-container"></div>
+
+            <!-- About Modal -->
+            <div id="aboutModal" class="modal">
+                <div class="modal-overlay" id="modalOverlay"></div>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>About Guitar Scale Patterns</h2>
+                        <button class="modal-close" id="closeModal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <h3>How It Works</h3>
+                        <p>This application helps you visualize guitar scale patterns across the fretboard. Here's how to use it:</p>
+                        <ul>
+                            <li><strong>Key Selector:</strong> Choose the musical key for the scale patterns</li>
+                            <li><strong>Scale Type:</strong> Switch between Diatonic and Pentatonic scale patterns</li>
+                            <li><strong>Note Labels:</strong> Toggle visibility of note names on the fretboard</li>
+                            <li><strong>Scale Degrees:</strong> Toggle visibility of scale degree numbers</li>
+<li><strong>Root Highlight:</strong> Highlight major or minor root notes in the patterns</li>
+<li><strong>Fret Numbers:</strong> Numbers indicate the fret starting positions of the scale patterns on the fretboard</li>
+</ul>
+
+                        <h3>Study Suggestions</h3>
+                        <p>Practice these patterns to improve your fretboard knowledge:</p>
+                        <ul>
+                            <li><strong>Learn One Key at a Time:</strong> Master all patterns in a single key before moving to another</li>
+                            <li><strong>Connect the Patterns:</strong> Notice how patterns connect / overlap across the fretboard</li>
+                   
+                            <li><strong>Improvise:</strong> Use these patterns as a foundation for creating your own melodic lines</li>
+  
+                        </ul>
+
+                        <h3>Tips</h3>
+                        <ul>
+                            <li>Use the note labels to learn the note names on the fretboard</li>
+                            <li>Practice visualizing the patterns without looking at the screen</li>
+                            <li> Notice that changing key moves the patterns to different positions on the fretboard</li> 
+                            <li>Combine patterns to create longer musical phrases using slides / postion shifts</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

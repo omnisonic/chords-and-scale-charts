@@ -32,6 +32,13 @@
     font-size: 11px;
 }
 
+/* Scale degree labels */
+.scale-diagram .scale-degree-label {
+    font-size: 11px;
+    fill: white;
+    font-weight: bold;
+}
+
 .scale-diagram text {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }

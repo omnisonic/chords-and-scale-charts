@@ -124,6 +124,38 @@ function getScaleDegree(note) {
 }
 
 /**
+ * Calculate the scale degree of a note relative to a given root note and scale type
+ * @param {string} note - Note name (C, D, E, F, G, A, B, C#, D#, etc.)
+ * @param {string} rootNote - Root note (e.g., 'C', 'F#')
+ * @param {string} scaleType - Scale type ('diatonic' or 'pentatonic')
+ * @returns {number} - Scale degree (1-7 for diatonic, 1-5 for pentatonic)
+ */
+export function calculateScaleDegree(note, rootNote, scaleType) {
+    // Diatonic scale degrees (1-7)
+    const diatonicDegrees = {
+        'C': 1, 'D': 2, 'E': 3, 'F': 4, 'G': 5, 'A': 6, 'B': 7
+    };
+    
+    // Pentatonic scale degrees (1-5)
+    const pentatonicDegrees = {
+        'C': 1, 'D': 2, 'E': 3, 'G': 5, 'A': 6
+    };
+    
+    // Transpose the note to the new root
+    const transposedNote = transposeNote(note, calculateFretDistance(rootNote, 'C'));
+    
+    // Get the scale degree based on the scale type
+    if (scaleType === 'diatonic') {
+        return diatonicDegrees[transposedNote] || 1;
+    } else if (scaleType === 'pentatonic') {
+        return pentatonicDegrees[transposedNote] || 1;
+    }
+    
+    // Default to diatonic if scale type is unknown
+    return diatonicDegrees[transposedNote] || 1;
+}
+
+/**
  * Convert note patterns to display patterns showing fret numbers
  * Shows fret number for the first note on each string, then uses scale degrees
  * @param {object} scaleData - Original scale data with note patterns

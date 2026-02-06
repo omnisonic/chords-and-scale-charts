@@ -1,15 +1,16 @@
 // Scale SVG rendering functions
 
-import { convertPatternToRoot, calculateFretDistance, transposeNote, getNoteFretonSixthString, chooseEnharmonic } from './utils.js';
+import { convertPatternToRoot, calculateFretDistance, transposeNote, getNoteFretonSixthString, chooseEnharmonic, calculateScaleDegree } from './utils.js';
 
 /**
  * Generates SVG for a scale diagram
  * @param {object} scaleData - Scale pattern data
  * @param {string} rootNote - Root note for key-agnostic display
  * @param {boolean} highlightTonic - Whether to highlight tonic notes
+ * @param {string} scaleType - Scale type ('diatonic' or 'pentatonic')
  * @returns {string} - SVG HTML string
  */
-export function generateScaleDiagram(scaleData, rootNote = 'C', highlightTonic = false) {
+export function generateScaleDiagram(scaleData, rootNote = 'C', highlightTonic = false, scaleType = 'diatonic') {
     const strings = 6;
     const frets = 5;
     const stringDistance = 28;
@@ -109,8 +110,12 @@ export function generateScaleDiagram(scaleData, rootNote = 'C', highlightTonic =
                     // Draw note circle
                     svg += `<circle cx="${x}" cy="${y}" r="${radius}" fill="${fillColor}"/>`;
                     
-    // Draw note name
-    svg += `<text class="scale-note-label" x="${x}" y="${y + 4}" text-anchor="middle" font-family="Verdana" font-size="11" fill="white" font-weight="bold">${displayNote}</text>`;
+                    // Draw note name
+                    svg += `<text class="scale-note-label" x="${x}" y="${y + 4}" text-anchor="middle" font-family="Verdana" font-size="11" fill="white" font-weight="bold">${displayNote}</text>`;
+                    
+                    // Draw scale degree label
+                    const scaleDegree = calculateScaleDegree(transposedNote, rootNote, scaleType);
+                    svg += `<text class="scale-degree-label" x="${x}" y="${y + 4}" text-anchor="middle" font-family="Verdana" font-size="11" fill="white" font-weight="bold">${scaleDegree}</text>`;
                 }
             });
         }
