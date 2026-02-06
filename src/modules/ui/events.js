@@ -13,6 +13,7 @@ let highlightTonic = false;
 let selectedKey = 'C';
 let scaleRootNote = 'C';
 let labelsVisible = false;
+let scaleDegreesVisible = false; // Start with scale degrees hidden
 
 /**
  * Restore note label visibility state after re-rendering
@@ -23,6 +24,29 @@ function restoreLabelVisibility() {
             el.classList.remove('invisible');
         } else {
             el.classList.add('invisible');
+        }
+    });
+}
+
+/**
+ * Restore scale degree visibility state after re-rendering
+ */
+function restoreScaleDegreeVisibility() {
+    document.querySelectorAll('.scale-degree-label').forEach(function(el) {
+        if (scaleDegreesVisible) {
+            el.classList.remove('invisible');
+            // Hide note labels when scale degrees are visible
+            document.querySelectorAll('.scale-note-label').forEach(function(noteEl) {
+                noteEl.classList.add('invisible');
+            });
+        } else {
+            el.classList.add('invisible');
+            // Show note labels when scale degrees are hidden
+            document.querySelectorAll('.scale-note-label').forEach(function(noteEl) {
+                if (labelsVisible) {
+                    noteEl.classList.remove('invisible');
+                }
+            });
         }
     });
 }
@@ -58,15 +82,18 @@ export function initializeEventListeners() {
         });
     }
     
-    // Root note selector change (scale page)
-    const scaleKeySelector = document.getElementById('scaleKeySelector');
-    if (scaleKeySelector) {
-        scaleKeySelector.addEventListener('change', function() {
-            scaleRootNote = this.value;
-            renderScaleDiagrams(currentScaleData, scaleRootNote, highlightTonic, currentScaleType);
-            restoreLabelVisibility();
-        });
-    }
+// Root note selector change (scale page)
+const scaleKeySelector = document.getElementById('scaleKeySelector');
+if (scaleKeySelector) {
+    scaleKeySelector.addEventListener('change', function() {
+        scaleRootNote = this.value;
+        labelsVisible = false; // Hide labels when changing key
+        scaleDegreesVisible = false; // Hide scale degrees when changing key
+        renderScaleDiagrams(currentScaleData, scaleRootNote, highlightTonic, currentScaleType);
+        restoreLabelVisibility();
+        restoreScaleDegreeVisibility();
+    });
+}
     
     // Scale type toggle (scale page)
     const toggleScaleType = document.getElementById('toggleScaleType');
@@ -112,8 +139,27 @@ export function initializeEventListeners() {
     if (toggleVisibility) {
         toggleVisibility.addEventListener('click', function() {
             labelsVisible = !labelsVisible;
+            scaleDegreesVisible = false; // Hide scale degrees when showing note labels
             document.querySelectorAll('.scale-note-label').forEach(function(el) {
                 el.classList.toggle('invisible');
+            });
+            document.querySelectorAll('.scale-degree-label').forEach(function(el) {
+                el.classList.add('invisible');
+            });
+        });
+    }
+    
+    // Toggle scale degrees visibility (scale page)
+    const toggleScaleDegrees = document.getElementById('toggleScaleDegrees');
+    if (toggleScaleDegrees) {
+        toggleScaleDegrees.addEventListener('click', function() {
+            scaleDegreesVisible = !scaleDegreesVisible;
+            labelsVisible = false; // Hide note labels when showing scale degrees
+            document.querySelectorAll('.scale-degree-label').forEach(function(el) {
+                el.classList.toggle('invisible');
+            });
+            document.querySelectorAll('.scale-note-label').forEach(function(el) {
+                el.classList.add('invisible');
             });
         });
     }
@@ -149,6 +195,7 @@ export function initializeEventListeners() {
             }
             renderScaleDiagrams(currentScaleData, scaleRootNote, highlightTonic, currentScaleType);
             restoreLabelVisibility();
+            restoreScaleDegreeVisibility();
         });
     }
 
@@ -157,6 +204,8 @@ export function initializeEventListeners() {
         renderScaleDiagrams(currentScaleData, scaleRootNote, highlightTonic, currentScaleType);
         // Hide note labels by default
         restoreLabelVisibility();
+        // Hide scale degrees by default
+        restoreScaleDegreeVisibility();
     });
     
     // Progression item click handlers (added dynamically)
