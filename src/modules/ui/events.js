@@ -89,115 +89,155 @@ if (scaleKeySelector) {
         scaleRootNote = this.value;
         labelsVisible = false; // Hide labels when changing key
         scaleDegreesVisible = false; // Hide scale degrees when changing key
+        // Deactivate both toggle buttons
+        const toggleVisibility = document.getElementById('toggleVisibility');
+        const toggleScaleDegrees = document.getElementById('toggleScaleDegrees');
+        if (toggleVisibility) toggleVisibility.classList.remove('active');
+        if (toggleScaleDegrees) toggleScaleDegrees.classList.remove('active');
         renderScaleDiagrams(currentScaleData, scaleRootNote, highlightTonic, currentScaleType);
         restoreLabelVisibility();
         restoreScaleDegreeVisibility();
     });
 }
     
-    // Scale type toggle (scale page)
-    const toggleScaleType = document.getElementById('toggleScaleType');
-    if (toggleScaleType) {
-        toggleScaleType.addEventListener('click', function() {
-            const toggleContainer = this;
-            const options = toggleContainer.querySelectorAll('.toggle-option');
-            
-            if (currentScaleType === 'diatonic') {
-                currentScaleType = 'pentatonic';
-                currentScaleData = pentatonicScaleData;
-                const scaleHeader = document.getElementById('scaleHeader');
-                if (scaleHeader) {
-                    scaleHeader.textContent = 'Pentatonic Scale Patterns';
-                }
-                
-                // Update visual state
-                toggleContainer.classList.add('pentatonic');
-                options[0].classList.remove('active');
-                options[1].classList.add('active');
-            } else {
-                currentScaleType = 'diatonic';
-                currentScaleData = diatonicScaleData;
-                const scaleHeader = document.getElementById('scaleHeader');
-                if (scaleHeader) {
-                    scaleHeader.textContent = 'Diatonic Scale Patterns';
-                }
-                
-                // Update visual state
-                toggleContainer.classList.remove('pentatonic');
-                options[0].classList.add('active');
-                options[1].classList.remove('active');
+// Scale type toggle (scale page)
+const toggleScaleType = document.getElementById('toggleScaleType');
+if (toggleScaleType) {
+    toggleScaleType.addEventListener('click', function() {
+        const toggleContainer = this;
+        const options = toggleContainer.querySelectorAll('.toggle-option');
+        
+        if (currentScaleType === 'diatonic') {
+            currentScaleType = 'pentatonic';
+            currentScaleData = pentatonicScaleData;
+            const scaleHeader = document.getElementById('scaleHeader');
+            if (scaleHeader) {
+                scaleHeader.textContent = 'Pentatonic Scale Patterns';
             }
             
-            // Clear and re-render scales
-            renderScaleDiagrams(currentScaleData, scaleRootNote, highlightTonic, currentScaleType);
-            restoreLabelVisibility();
-        });
-    }
+            // Update visual state
+            toggleContainer.classList.add('pentatonic');
+            options[0].classList.remove('active');
+            options[1].classList.add('active');
+        } else {
+            currentScaleType = 'diatonic';
+            currentScaleData = diatonicScaleData;
+            const scaleHeader = document.getElementById('scaleHeader');
+            if (scaleHeader) {
+                scaleHeader.textContent = 'Diatonic Scale Patterns';
+            }
+            
+            // Update visual state
+            toggleContainer.classList.remove('pentatonic');
+            options[0].classList.add('active');
+            options[1].classList.remove('active');
+        }
+        
+        // Clear and re-render scales
+        labelsVisible = false; // Hide note labels when changing scale type
+        scaleDegreesVisible = false; // Hide scale degrees when changing scale type
+        // Deactivate both toggle buttons
+        const toggleVisibility = document.getElementById('toggleVisibility');
+        const toggleScaleDegrees = document.getElementById('toggleScaleDegrees');
+        if (toggleVisibility) toggleVisibility.classList.remove('active');
+        if (toggleScaleDegrees) toggleScaleDegrees.classList.remove('active');
+        renderScaleDiagrams(currentScaleData, scaleRootNote, highlightTonic, currentScaleType);
+        restoreLabelVisibility();
+        restoreScaleDegreeVisibility();
+    });
+}
     
-    // Toggle note labels visibility (scale page)
-    const toggleVisibility = document.getElementById('toggleVisibility');
-    if (toggleVisibility) {
-        toggleVisibility.addEventListener('click', function() {
-            labelsVisible = !labelsVisible;
-            scaleDegreesVisible = false; // Hide scale degrees when showing note labels
-            document.querySelectorAll('.scale-note-label').forEach(function(el) {
-                el.classList.toggle('invisible');
-            });
-            document.querySelectorAll('.scale-degree-label').forEach(function(el) {
-                el.classList.add('invisible');
-            });
+// Toggle note labels visibility (scale page)
+const toggleVisibility = document.getElementById('toggleVisibility');
+if (toggleVisibility) {
+    toggleVisibility.addEventListener('click', function() {
+        labelsVisible = !labelsVisible;
+        scaleDegreesVisible = false; // Hide scale degrees when showing note labels
+        document.querySelectorAll('.scale-note-label').forEach(function(el) {
+            el.classList.toggle('invisible');
         });
-    }
+        document.querySelectorAll('.scale-degree-label').forEach(function(el) {
+            el.classList.add('invisible');
+        });
+        // Toggle active class on the button
+        this.classList.toggle('active');
+        // Remove active class from scale degrees button
+        const scaleDegreesBtn = document.getElementById('toggleScaleDegrees');
+        if (scaleDegreesBtn) {
+            scaleDegreesBtn.classList.remove('active');
+        }
+    });
+}
     
-    // Toggle scale degrees visibility (scale page)
-    const toggleScaleDegrees = document.getElementById('toggleScaleDegrees');
-    if (toggleScaleDegrees) {
-        toggleScaleDegrees.addEventListener('click', function() {
-            scaleDegreesVisible = !scaleDegreesVisible;
-            labelsVisible = false; // Hide note labels when showing scale degrees
-            document.querySelectorAll('.scale-degree-label').forEach(function(el) {
-                el.classList.toggle('invisible');
-            });
-            document.querySelectorAll('.scale-note-label').forEach(function(el) {
-                el.classList.add('invisible');
-            });
+// Toggle scale degrees visibility (scale page)
+const toggleScaleDegrees = document.getElementById('toggleScaleDegrees');
+if (toggleScaleDegrees) {
+    toggleScaleDegrees.addEventListener('click', function() {
+        scaleDegreesVisible = !scaleDegreesVisible;
+        labelsVisible = false; // Hide note labels when showing scale degrees
+        document.querySelectorAll('.scale-degree-label').forEach(function(el) {
+            el.classList.toggle('invisible');
         });
-    }
+        document.querySelectorAll('.scale-note-label').forEach(function(el) {
+            el.classList.add('invisible');
+        });
+        // Toggle active class on the button
+        this.classList.toggle('active');
+        // Remove active class from note labels button
+        const noteLabelsBtn = document.getElementById('toggleVisibility');
+        if (noteLabelsBtn) {
+            noteLabelsBtn.classList.remove('active');
+        }
+    });
+}
     
     // Major/Minor root highlight buttons (scale page)
     const setMajorRootBtn = document.getElementById('setMajorRoot');
     const setMinorRootBtn = document.getElementById('setMinorRoot');
 
-    if (setMajorRootBtn) {
-        setMajorRootBtn.addEventListener('click', function() {
-            if (highlightTonic === 'major') {
-                highlightTonic = false;
-                this.classList.remove('active');
-            } else {
-                highlightTonic = 'major';
-                this.classList.add('active');
-                if (setMinorRootBtn) setMinorRootBtn.classList.remove('active');
-            }
-            renderScaleDiagrams(currentScaleData, scaleRootNote, highlightTonic, currentScaleType);
-            restoreLabelVisibility();
-        });
-    }
+if (setMajorRootBtn) {
+    setMajorRootBtn.addEventListener('click', function() {
+        if (highlightTonic === 'major') {
+            highlightTonic = false;
+            this.classList.remove('active');
+        } else {
+            highlightTonic = 'major';
+            this.classList.add('active');
+            if (setMinorRootBtn) setMinorRootBtn.classList.remove('active');
+        }
+        // Set scale degrees visibility based on toggle state
+        if (document.getElementById('toggleScaleDegrees')?.classList.contains('active')) {
+            scaleDegreesVisible = true;
+        } else {
+            scaleDegreesVisible = false;
+        }
+        renderScaleDiagrams(currentScaleData, scaleRootNote, highlightTonic, currentScaleType);
+        restoreLabelVisibility();
+        restoreScaleDegreeVisibility();
+    });
+}
 
-    if (setMinorRootBtn) {
-        setMinorRootBtn.addEventListener('click', function() {
-            if (highlightTonic === 'minor') {
-                highlightTonic = false;
-                this.classList.remove('active');
-            } else {
-                highlightTonic = 'minor';
-                this.classList.add('active');
-                if (setMajorRootBtn) setMajorRootBtn.classList.remove('active');
-            }
-            renderScaleDiagrams(currentScaleData, scaleRootNote, highlightTonic, currentScaleType);
-            restoreLabelVisibility();
-            restoreScaleDegreeVisibility();
-        });
-    }
+if (setMinorRootBtn) {
+    setMinorRootBtn.addEventListener('click', function() {
+        if (highlightTonic === 'minor') {
+            highlightTonic = false;
+            this.classList.remove('active');
+        } else {
+            highlightTonic = 'minor';
+            this.classList.add('active');
+            if (setMajorRootBtn) setMajorRootBtn.classList.remove('active');
+        }
+        // Set scale degrees visibility based on toggle state
+        if (document.getElementById('toggleScaleDegrees')?.classList.contains('active')) {
+            scaleDegreesVisible = true;
+        } else {
+            scaleDegreesVisible = false;
+        }
+        renderScaleDiagrams(currentScaleData, scaleRootNote, highlightTonic, currentScaleType);
+        restoreLabelVisibility();
+        restoreScaleDegreeVisibility();
+    });
+}
 
     // Initial scale render
     document.addEventListener('DOMContentLoaded', function() {
