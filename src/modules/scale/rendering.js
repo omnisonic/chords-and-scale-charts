@@ -12,19 +12,19 @@ import { convertPatternToRoot, calculateFretDistance, transposeNote, getNoteFret
 export function generateScaleDiagram(scaleData, rootNote = 'C', highlightTonic = false) {
     const strings = 6;
     const frets = 5;
-    const stringDistance = 20;
-    const fretDistance = 20;
-    const radius = 7;
-    const topPadding = 20;
-    const sidePadding = 20;
+    const stringDistance = 28;
+    const fretDistance = 28;
+    const radius = 10;
+    const topPadding = 25;
+    const sidePadding = 25;
     const svgWidth = sidePadding * 2 + stringDistance * frets;
     const svgHeight = topPadding + fretDistance * strings;
 
     // Add extra left offset so labels to the left of the nut aren't clipped
-    const leftOffset = 18;
+    const leftOffset = 15;
     const svgTotalWidth = svgWidth + leftOffset;
 
-    let svg = `<svg width="${svgTotalWidth}" height="${svgHeight}" xmlns="http://www.w3.org/2000/svg">`;
+    let svg = `<svg width="${svgTotalWidth}" height="${svgHeight}" viewBox="0 0 ${svgTotalWidth} ${svgHeight}" xmlns="http://www.w3.org/2000/svg">`;
 
     // (Frets and strings are drawn after we determine startingFret so we
     // can hide the top line for open-position diagrams.)
@@ -109,8 +109,8 @@ export function generateScaleDiagram(scaleData, rootNote = 'C', highlightTonic =
                     // Draw note circle
                     svg += `<circle cx="${x}" cy="${y}" r="${radius}" fill="${fillColor}"/>`;
                     
-                    // Draw note name
-                    svg += `<text class="scale-note-label" x="${x}" y="${y + 3}" text-anchor="middle" font-family="Verdana" font-size="9" fill="white" font-weight="bold">${displayNote}</text>`;
+    // Draw note name
+    svg += `<text class="scale-note-label" x="${x}" y="${y + 4}" text-anchor="middle" font-family="Verdana" font-size="11" fill="white" font-weight="bold">${displayNote}</text>`;
                 }
             });
         }

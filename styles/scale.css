@@ -3,16 +3,37 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 30px;
-    margin: 20px auto;
-    max-width: 1200px;
+    gap: 10px;
+    margin: 15px auto;
+    max-width: 100%;
+    padding: 0 10px;
 }
 
 .scale-diagram {
     background: white;
-    padding: 15px;
-    border-radius: 8px;
+    padding: 8px;
+    border-radius: 6px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 0 1 280px;
+    max-width: 280px;
+}
+
+.scale-diagram svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Ensure SVG text scales properly */
+.scale-diagram .scale-note-label {
+    font-size: 11px;
+}
+
+.scale-diagram text {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .scale-section-header {
@@ -83,6 +104,18 @@
     /* SVG rendering styles will be applied via JavaScript */
 }
 
+/* Desktop layout - ensure wrapping */
+@media (min-width: 769px) {
+    .scale-container {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .scale-diagram {
+        flex: 0 1 280px;
+    }
+}
+
 /* Scale specific SVG text styles */
 .zero-text {
     fill: white;
@@ -97,4 +130,9 @@
     font-weight: bold;
     text-anchor: "middle";
     alignment-baseline: "middle";
+}
+
+/* Invisible class for note labels */
+.invisible {
+    display: none !important;
 }

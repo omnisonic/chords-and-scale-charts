@@ -12,17 +12,19 @@ let currentScaleData = diatonicScaleData;
 let highlightTonic = false;
 let selectedKey = 'C';
 let scaleRootNote = 'C';
-let labelsVisible = true;
+let labelsVisible = false;
 
 /**
  * Restore note label visibility state after re-rendering
  */
 function restoreLabelVisibility() {
-    if (!labelsVisible) {
-        document.querySelectorAll('.scale-note-label').forEach(function(el) {
+    document.querySelectorAll('.scale-note-label').forEach(function(el) {
+        if (labelsVisible) {
+            el.classList.remove('invisible');
+        } else {
             el.classList.add('invisible');
-        });
-    }
+        }
+    });
 }
 
 /**
@@ -153,6 +155,8 @@ export function initializeEventListeners() {
     // Initial scale render
     document.addEventListener('DOMContentLoaded', function() {
         renderScaleDiagrams(currentScaleData, scaleRootNote, highlightTonic, currentScaleType);
+        // Hide note labels by default
+        restoreLabelVisibility();
     });
     
     // Progression item click handlers (added dynamically)

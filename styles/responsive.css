@@ -2,59 +2,33 @@
 
 /* Tablet and smaller desktop screens */
 @media (max-width: 768px) {
-    .sidebar {
-        width: 200px;
-    }
-    
     .main-content {
-        margin-left: 200px;
+        padding: 15px;
     }
     
-    .chord-container,
     .scale-container {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+    }
+    
+    .chord-container {
         gap: 20px;
     }
     
     .chord-diagram,
     .scale-diagram {
-        padding: 12px;
+        flex: 0 1 260px;
+        padding: 10px;
+        width: 90%;
+        max-width: 320px;
     }
 }
 
 /* Mobile devices */
 @media (max-width: 600px) {
-    body {
-        display: block;
-    }
-    
-    .sidebar {
-        transform: translateX(-100%);
-        transition: transform 0.3s;
-        width: 200px;
-        z-index: 1000;
-    }
-    
-    .sidebar.open {
-        transform: translateX(0);
-    }
-    
     .main-content {
-        margin-left: 0;
         padding: 15px;
-    }
-    
-    .menu-toggle {
-        display: block;
-        position: fixed;
-        top: 10px;
-        left: 10px;
-        z-index: 1001;
-        background: #8b6f47;
-        color: white;
-        border: none;
-        padding: 10px;
-        border-radius: 4px;
-        cursor: pointer;
     }
     
     /* Button and control adjustments for mobile */
@@ -94,8 +68,14 @@
     }
     
     /* Chord and scale diagram adjustments */
-    .chord-container,
     .scale-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        padding: 0;
+    }
+    
+    .chord-container {
         flex-direction: column;
         align-items: center;
         gap: 15px;
@@ -103,8 +83,10 @@
     
     .chord-diagram,
     .scale-diagram {
-        min-width: 280px;
-        max-width: 100%;
+        flex: 0 1 240px;
+        width: 90%;
+        max-width: 280px;
+        padding: 8px;
     }
     
     /* Progression view adjustments */
@@ -131,21 +113,6 @@
         text-align: center;
     }
     
-    /* Sidebar navigation adjustments */
-    .sidebar h2 {
-        font-size: 18px;
-    }
-    
-    .sidebar h3 {
-        font-size: 14px;
-        margin-top: 15px;
-    }
-    
-    .sidebar a {
-        padding: 6px 10px;
-        font-size: 14px;
-    }
-    
     /* Key selector adjustments */
     .key-selector {
         width: 100%;
@@ -161,8 +128,9 @@
     
     .chord-diagram,
     .scale-diagram {
-        padding: 10px;
-        min-width: 240px;
+        padding: 8px;
+        flex: 0 1 220px;
+        max-width: 260px;
     }
     
     .chord-name {
@@ -190,8 +158,6 @@
 
 /* Print styles */
 @media print {
-    .sidebar,
-    .menu-toggle,
     .button-container,
     .progression-controls,
     .toggle-container {
@@ -199,7 +165,6 @@
     }
     
     .main-content {
-        margin-left: 0;
         padding: 0;
     }
     
