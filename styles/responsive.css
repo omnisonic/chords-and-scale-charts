@@ -29,6 +29,9 @@
 @media (max-width: 600px) {
     .main-content {
         padding: 15px;
+        overflow-x: hidden; /* Prevent horizontal scrolling */
+        overflow-y: auto; /* Enable vertical scrolling */
+        max-height: 100vh; /* Ensure content fits within viewport */
     }
     
     /* Button and control adjustments for mobile */
