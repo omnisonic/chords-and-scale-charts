@@ -1,35 +1,39 @@
+/* Scale container for charts */
 #scale-container {
     display: flex;
-    flex-wrap: wrap; /* Allow items to wrap */
+    flex-wrap: wrap;
     justify-content: space-around;
-    gap: 20px; /* Padding between SVGs */
-    height: 90vh; /* Limit the height to viewport height */
-    align-content: flex-start; /* Align items to the start of the container */
+    gap: 20px;
+    height: 90vh;
+    align-content: flex-start;
 }
 
+/* Chart SVG styles */
 .chart-svg {
-    flex: 1 1 auto; /* Allow SVGs to grow and shrink */
+    flex: 1 1 auto;
     width: auto;
     height: auto;
-    max-width: 100%; /* Maximum width of 100% of its container */
-    max-height: 100%; /* Maximum height of 100% of its container */
-    min-width: 300px; /* Set a minimum width for the SVGs */
+    max-width: 100%;
+    max-height: 100%;
+    min-width: 300px;
 }
 
-
-    /* Style for the '0' text inside the circles */
+/* Style for the '0' text inside the circles */
 .zero-text {
-    fill: white; /* White text color */
-    font-size: x-small ; /* Adjust as needed */
-    text-anchor: "middle"; /* Center the text horizontally */
-    alignment-baseline: "middle"; /* Center the text vertically */
+    fill: white;
+    font-size: x-small;
+    text-anchor: "middle";
+    alignment-baseline: "middle";
 }
-.invisible {
+
+/* Invisible class - already in base.css */
+/* .invisible {
     visibility: hidden;
-}
-/* Center the button container */
-.button-container {
+} */
+
+/* Button container - already in ui.css */
+/* .button-container {
     display: flex;
     justify-content: center;
-    margin-top: 20px; /* Or any other amount to space it from content above */
-}
+    margin-top: 20px;
+} */

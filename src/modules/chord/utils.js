@@ -1,3 +1,5 @@
+import { chordProgressions } from './data.js';
+
 // Chord utility functions
 
 /**
@@ -67,9 +69,18 @@ export function getMinFret(chord) {
  * @returns {string} - Function label
  */
 export function getChordFunctionLabel(key, chordName) {
-    // This would need access to chordProgressions data
-    // For now, we'll return an empty string and let the UI handle it
-    // In a full implementation, this would import the data module
+    const progression = chordProgressions[key];
+    if (!progression) return '';
+    
+    // Determine if key is minor
+    const isMinor = key.endsWith('m');
+    
+    for (const [func, data] of Object.entries(progression)) {
+        if (data.name === chordName) {
+            // Return lowercase for minor keys, uppercase for major keys
+            return isMinor ? func.toLowerCase() : func;
+        }
+    }
     return '';
 }
 

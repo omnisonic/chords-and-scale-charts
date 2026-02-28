@@ -2,10 +2,6 @@
 
 /* Tablet and smaller desktop screens */
 @media (max-width: 768px) {
-    .main-content {
-        padding: 15px;
-    }
-    
     .scale-container {
         flex-wrap: wrap;
         justify-content: center;
@@ -27,12 +23,6 @@
 
 /* Mobile devices */
 @media (max-width: 600px) {
-    .main-content {
-        padding: 15px;
-        overflow-x: hidden; /* Prevent horizontal scrolling */
-        overflow-y: auto; /* Enable vertical scrolling */
-        max-height: 100vh; /* Ensure content fits within viewport */
-    }
     
     /* Button and control adjustments for mobile */
     button {
@@ -125,10 +115,6 @@
 
 /* Very small screens */
 @media (max-width: 360px) {
-    .main-content {
-        padding: 10px;
-    }
-    
     .chord-diagram,
     .scale-diagram {
         padding: 8px;

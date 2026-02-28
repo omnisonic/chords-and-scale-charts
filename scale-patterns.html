@@ -8,99 +8,22 @@
     <link rel="stylesheet" href="styles/scale.css">
     <link rel="stylesheet" href="styles/ui.css">
     <link rel="stylesheet" href="styles/responsive.css">
-    <style>
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.4);
-        }
-        
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 500px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-        }
-        
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        
-        .payment-options {
-            margin-top: 20px;
-        }
-        
-        .payment-method {
-            margin: 15px 0;
-        }
-        
-        .payment-btn {
-            width: 100%;
-            padding: 12px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: background-color 0.3s;
-        }
-        
-        .payment-btn:hover {
-            background-color: #45a049;
-        }
-        
-        .payment-btn img {
-            width: 20px;
-            height: 20px;
-        }
-        
-        /* Footer Styles */
-        .footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 15px 20px;
-            margin-top: 40px;
-            font-size: 14px;
-        }
-        
-        .footer a {
-            color: #4CAF50;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        
-        .footer a:hover {
-            text-decoration: underline;
-        }
-    </style>
 </head>
 <body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="index.html">Guitar Chords & Scales</a>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="chord.html" class="nav-link">Chords</a>
+                <a href="scale-patterns.html" class="nav-link active">Scales</a>
+            </div>
+        </div>
+    </nav>
+
     <!-- Main Content -->
     <div class="main-content">
         <!-- <h1>Guitar Scale Patterns Reference</h1> -->
@@ -141,7 +64,7 @@
 
             <!-- About Modal -->
             <div id="aboutModal" class="modal">
-                <div class="modal-overlay" id="modalOverlay"></div>
+                <div class="modal-overlay"></div>
                 <div class="modal-content">
                     <div class="modal-header">
                         <h2>About Guitar Scale Patterns</h2>
@@ -155,26 +78,24 @@
                             <li><strong>Scale Type:</strong> Switch between Diatonic and Pentatonic scale patterns</li>
                             <li><strong>Note Labels:</strong> Toggle visibility of note names on the fretboard</li>
                             <li><strong>Scale Degrees:</strong> Toggle visibility of scale degree numbers</li>
-<li><strong>Root Highlight:</strong> Highlight major or minor root notes in the patterns</li>
-<li><strong>Fret Numbers:</strong> Numbers indicate the fret starting positions of the scale patterns on the fretboard</li>
-</ul>
+                            <li><strong>Root Highlight:</strong> Highlight major or minor root notes in the patterns</li>
+                            <li><strong>Fret Numbers:</strong> Numbers indicate the fret starting positions of the scale patterns on the fretboard</li>
+                        </ul>
 
                         <h3>Study Suggestions</h3>
                         <p>Practice these patterns to improve your fretboard knowledge:</p>
                         <ul>
                             <li><strong>Learn One Key at a Time:</strong> Master all patterns in a single key before moving to another</li>
                             <li><strong>Connect the Patterns:</strong> Notice how patterns connect / overlap across the fretboard</li>
-                   
                             <li><strong>Improvise:</strong> Use these patterns as a foundation for creating your own melodic lines</li>
-  
                         </ul>
 
                         <h3>Tips</h3>
                         <ul>
                             <li>Use the note labels to learn the note names on the fretboard</li>
                             <li>Practice visualizing the patterns without looking at the screen</li>
-                            <li> Notice that changing key moves the patterns to different positions on the fretboard</li> 
-                            <li>Combine patterns to create longer musical phrases using slides / postion shifts</li>
+                            <li>Notice that changing key moves the patterns to different positions on the fretboard</li>
+                            <li>Combine patterns to create longer musical phrases using slides / position shifts</li>
                         </ul>
                     </div>
                 </div>
@@ -184,9 +105,12 @@
 
     <!-- Donation Modal -->
     <div id="donationModal" class="modal">
+        <div class="modal-overlay"></div>
         <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Support Our Work</h2>
+            <div class="modal-header">
+                <h2>Support Our Work</h2>
+                <button class="modal-close" id="donationClose">&times;</button>
+            </div>
             <p>This website will never host ads. Your support helps keep it free and ad-free.</p>
             <div class="payment-options">
                 <h3>Choose Your Payment Method:</h3>
@@ -228,21 +152,20 @@
     <script>
         // Donation modal functionality
         const donateLink = document.getElementById('donateLink');
-        const modal = document.getElementById('donationModal');
-        const closeBtn = document.getElementsByClassName('close')[0];
+        const donationModal = document.getElementById('donationModal');
+        const donationCloseBtn = document.getElementById('donationClose');
+        const donationOverlay = donationModal.querySelector('.modal-overlay');
 
         donateLink.onclick = function() {
-            modal.style.display = "block";
+            donationModal.classList.add('active');
         }
 
-        closeBtn.onclick = function() {
-            modal.style.display = "none";
+        donationCloseBtn.onclick = function() {
+            donationModal.classList.remove('active');
         }
 
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
+        donationOverlay.onclick = function() {
+            donationModal.classList.remove('active');
         }
 
         // Payment method click handlers

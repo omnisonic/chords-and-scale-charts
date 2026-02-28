@@ -50,61 +50,7 @@
     margin: 10px 0;
 }
 
-/* Scale Toggle Container */
-.toggle-container {
-    display: inline-flex;
-    background: #e0e0e0;
-    border-radius: 25px;
-    padding: 4px;
-    gap: 2px;
-    position: relative;
-    cursor: pointer;
-    user-select: none;
-}
-
-.toggle-option {
-    padding: 8px 20px;
-    border-radius: 20px;
-    font-size: 14px;
-    font-weight: 500;
-    color: #666;
-    transition: all 0.3s ease;
-    z-index: 2;
-    min-width: 80px;
-    text-align: center;
-}
-
-.toggle-slider {
-    position: absolute;
-    top: 4px;
-    left: 4px;
-    width: calc(50% - 4px);
-    height: calc(100% - 8px);
-    background: #4CAF50;
-    border-radius: 20px;
-    transition: transform 0.3s ease;
-    z-index: 1;
-}
-
-.toggle-container.pentatonic .toggle-slider {
-    transform: translateX(100%);
-}
-
-.toggle-container .toggle-option.active {
-    color: white;
-    font-weight: bold;
-}
-
-.toggle-container:hover .toggle-slider {
-    background: #45a049;
-}
-
-.toggle-label {
-    font-size: 12px;
-    color: #666;
-    margin-right: 8px;
-    font-weight: 500;
-}
+/* Toggle styles - moved to ui.css */
 
 /* Scale SVG Styles */
 .scale-svg {
@@ -143,3 +89,5 @@
 .invisible {
     display: none !important;
 }
+
+/* About Modal Specific Styles - moved to ui.css */

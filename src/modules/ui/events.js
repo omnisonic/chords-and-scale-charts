@@ -287,30 +287,35 @@ if (typeof window !== 'undefined') {
 // Modal functionality
 const openAboutModal = document.getElementById('openAboutModal');
 const closeModal = document.getElementById('closeModal');
-const modalOverlay = document.getElementById('modalOverlay');
 const aboutModal = document.getElementById('aboutModal');
 
-if (openAboutModal) {
+if (openAboutModal && aboutModal) {
     openAboutModal.addEventListener('click', function() {
         aboutModal.classList.add('active');
     });
 }
 
-if (closeModal) {
+if (closeModal && aboutModal) {
     closeModal.addEventListener('click', function() {
         aboutModal.classList.remove('active');
     });
 }
 
-if (modalOverlay) {
-    modalOverlay.addEventListener('click', function() {
-        aboutModal.classList.remove('active');
-    });
+// Close modal when clicking on the overlay
+if (aboutModal) {
+    const overlay = aboutModal.querySelector('.modal-overlay');
+    if (overlay) {
+        overlay.addEventListener('click', function() {
+            aboutModal.classList.remove('active');
+        });
+    }
 }
 
 // Close modal with ESC key
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && aboutModal.classList.contains('active')) {
-        aboutModal.classList.remove('active');
-    }
-});
+if (aboutModal) {
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && aboutModal.classList.contains('active')) {
+            aboutModal.classList.remove('active');
+        }
+    });
+}

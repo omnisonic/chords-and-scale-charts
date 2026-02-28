@@ -8,6 +8,26 @@
     max-width: 1200px;
 }
 
+/* Grid layout variant (used in index.html) */
+.chord-container.grid-layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin: 20px auto;
+    max-width: 1400px;
+    padding: 0 20px;
+}
+
+/* Flexbox layout variant (used in chord.html) */
+.chord-container.flex-layout {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin: 20px auto;
+    max-width: 1200px;
+}
+
 .chord-diagram {
     background: white;
     padding: 15px;

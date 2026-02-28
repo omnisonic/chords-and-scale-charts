@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guitar Chords and Scales</title>
-    <link rel="stylesheet" href="charts.css">
+    <title>Guitar Chords Reference</title>
     <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/chord.css">
     <link rel="stylesheet" href="styles/ui.css">
     <link rel="stylesheet" href="styles/responsive.css">
 </head>
@@ -17,8 +17,8 @@
                 <a href="index.html">Guitar Chords & Scales</a>
             </div>
             <div class="nav-links">
-                <a href="index.html" class="nav-link active">Home</a>
-                <a href="chord.html" class="nav-link">Chords</a>
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="chord.html" class="nav-link active">Chords</a>
                 <a href="scale-patterns.html" class="nav-link">Scales</a>
             </div>
         </div>
@@ -26,34 +26,46 @@
 
     <!-- Main Content -->
     <div class="main-content">
-        <h1>Guitar Chords and Scales Reference</h1>
+        <h1>Guitar Chords Reference</h1>
 
         <div class="section">
-            <h2>Available Resources</h2>
-            <div class="button-container">
-                <a href="chord.html" class="button">Chord Diagrams</a>
-                <a href="scale-patterns.html" class="button">Scale Patterns</a>
+            <h2>Common Chord Shapes</h2>
+            <div class="progression-controls">
+                <span class="toggle-label">Select Key:</span>
+                <select id="keySelector" class="key-selector">
+                    <optgroup label="Major Keys">
+                        <option value="C">C Major</option>
+                        <option value="D">D Major</option>
+                        <option value="E">E Major</option>
+                        <option value="F">F Major</option>
+                        <option value="G">G Major</option>
+                        <option value="A">A Major</option>
+                        <option value="B">B Major</option>
+                    </optgroup>
+                    <optgroup label="Minor Keys">
+                        <option value="Am">A Minor</option>
+                        <option value="Em">E Minor</option>
+                        <option value="Dm">D Minor</option>
+                        <option value="Gm">G Minor</option>
+                        <option value="Cm">C Minor</option>
+                        <option value="Fm">F Minor</option>
+                        <option value="Bm">B Minor</option>
+                    </optgroup>
+                </select>
             </div>
+            <div class="chord-container" id="chordContainer"></div>
         </div>
 
-        <div class="section">
-            <h2>About This Site</h2>
-            <p>This website provides guitar chord diagrams and scale patterns to help you learn and practice guitar.</p>
-            <ul>
-                <li><strong>Chord Diagrams:</strong> View chord shapes organized by key and progression</li>
-                <li><strong>Scale Patterns:</strong> Visualize diatonic and pentatonic scale patterns across the fretboard</li>
-            </ul>
-        </div>
-    </div>
+
 
     <!-- Donation Modal -->
     <div id="donationModal" class="modal">
         <div class="modal-overlay"></div>
         <div class="modal-content">
-        <div class="modal-header">
-            <h2>Support Our Work</h2>
-            <button class="modal-close" id="donationClose">&times;</button>
-        </div>
+            <div class="modal-header">
+                <h2>Support Our Work</h2>
+                <button class="modal-close" id="donationClose">&times;</button>
+            </div>
             <p>This website will never host ads. Your support helps keep it free and ad-free.</p>
             <div class="payment-options">
                 <h3>Choose Your Payment Method:</h3>
@@ -84,6 +96,8 @@
             </div>
         </div>
     </div>
+
+    <script type="module" src="src/index.js"></script>
 
     <!-- Footer -->
     <div class="footer">

@@ -1,6 +1,6 @@
 /* UI Component Styles */
 
-/* Button Styles */
+/* Button Styles - consistent base color for all toggle buttons */
 button {
     padding: 10px 20px;
     font-size: 14px;
@@ -9,6 +9,7 @@ button {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 button:hover {
@@ -16,8 +17,11 @@ button:hover {
 }
 
 button.active {
-    background-color: #2E7D32;
+    background-color: #1B5E20;
+    border: 2px solid #2E7D32;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     font-weight: bold;
+    transform: scale(1.02);
 }
 
 /* Button Container */
@@ -92,8 +96,6 @@ button.active {
     margin: 0 auto;
 }
 
-
-
 /* View Toggle Button */
 .view-toggle {
     padding: 8px 15px;
@@ -136,31 +138,39 @@ button.active {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     cursor: pointer;
+    z-index: 999;
 }
 
 .modal-content {
     position: relative;
     background: white;
     margin: 50px auto;
-    padding: 0;
+    padding: 20px;
     border-radius: 8px;
     max-width: 600px;
     width: 90%;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     transform: scale(0.9);
     transition: transform 0.2s ease-in-out;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 1001;
 }
 
 .modal.active .modal-content {
     transform: scale(1);
 }
 
+/* Modal Header and Body */
 .modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px;
     border-bottom: 1px solid #e5e5e5;
+    flex-shrink: 0;
 }
 
 .modal-header h2 {
@@ -191,8 +201,9 @@ button.active {
 
 .modal-body {
     padding: 20px;
-    max-height: 70vh;
     overflow-y: auto;
+    flex: 1;
+    max-height: calc(90vh - 120px);
 }
 
 .modal-body h3 {
@@ -217,4 +228,200 @@ button.active {
     color: #666;
     margin-bottom: 8px;
     line-height: 1.6;
+}
+
+/* Payment Button Styles */
+.payment-btn {
+    width: 100%;
+    padding: 12px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background-color 0.3s;
+}
+
+.payment-btn:hover {
+    background-color: #45a049;
+}
+
+.payment-btn img {
+    width: 20px;
+    height: 20px;
+}
+
+/* Toggle Switch Styles */
+.toggle-container {
+    display: inline-flex;
+    background: #e0e0e0;
+    border-radius: 25px;
+    padding: 4px;
+    gap: 2px;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+}
+
+.toggle-option {
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #666;
+    transition: all 0.3s ease;
+    z-index: 2;
+    min-width: 80px;
+    text-align: center;
+}
+
+.toggle-slider {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: calc(50% - 4px);
+    height: calc(100% - 8px);
+    background: #4CAF50;
+    border-radius: 20px;
+    transition: transform 0.3s ease;
+    z-index: 1;
+}
+
+.toggle-container.pentatonic .toggle-slider {
+    transform: translateX(100%);
+}
+
+.toggle-container .toggle-option.active {
+    color: white;
+    font-weight: bold;
+}
+
+.toggle-container:hover .toggle-slider {
+    background: #45a049;
+}
+
+.toggle-label {
+    font-size: 12px;
+    color: #666;
+    margin-right: 8px;
+    font-weight: 500;
+}
+
+/* Footer Styles */
+.footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 15px 20px;
+    margin-top: 40px;
+    font-size: 14px;
+}
+
+.footer a {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+/* Button Link Styles (for anchor tags styled as buttons) */
+.button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.button:hover {
+    background-color: #45a049;
+}
+
+/* Payment Options Container */
+.payment-options {
+    margin-top: 20px;
+}
+
+.payment-method {
+    margin: 15px 0;
+}
+
+/* Modal styles consolidated in this file */
+
+/* Progression Controls */
+.progression-controls {
+    text-align: center;
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+/* Key Selector Styles - already defined above */
+
+/* Root Toggle Buttons - consistent base color for all */
+.root-toggle {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.root-toggle:hover {
+    background-color: #45a049;
+}
+
+.root-toggle.active {
+    background-color: #1B5E20;
+    border: 2px solid #2E7D32;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    font-weight: bold;
+    transform: scale(1.02);
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 600px) {
+    .toggle-container {
+        flex-direction: column;
+        gap: 4px;
+    }
+    
+    .toggle-option {
+        padding: 6px 16px;
+        min-width: 60px;
+        font-size: 13px;
+    }
+    
+    .toggle-slider {
+        display: none;
+    }
+    
+    .toggle-container .toggle-option.active {
+        background: #4CAF50;
+        color: white;
+        border-radius: 16px;
+    }
+    
+    .payment-btn {
+        width: 100%;
+    }
+    
+    .key-selector {
+        width: 100%;
+        max-width: 200px;
+    }
 }
